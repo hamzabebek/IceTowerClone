@@ -6,8 +6,11 @@ TagManager:
   tags:
   - platform
   - floor
-  - SideCollider
-  - SideColliderRight
+  - SideWallRight
+  - SideWallLeft
+  - GameOverFloor
+  - HighscoreItemUsername
+  - HighscoreItemScore
   layers:
   - Default
   - TransparentFX
@@ -44,4 +47,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Main
+    uniqueID: 2690153053
     locked: 0

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "901071546105",
+    "project_id": "icytowercloneapp",
+    "storage_bucket": "icytowercloneapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:901071546105:android:eb23a322eebf7cb6616428",
+        "android_client_info": {
+          "package_name": "com.DefaultCompany.IcyTowerClone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEdWuz9pQvIyqz4tvL6zTAufNxL7-04QI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
