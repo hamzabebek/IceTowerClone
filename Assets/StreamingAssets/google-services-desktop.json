@@ -8,20 +8,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:901071546105:android:eb23a322eebf7cb6616428",
+        "mobilesdk_app_id": "1:901071546105:ios:3ca12b60d36559f8616428",
         "android_client_info": {
           "package_name": "com.DefaultCompany.IcyTowerClone"
         }
       },
-      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDEdWuz9pQvIyqz4tvL6zTAufNxL7-04QI"
+          "current_key": "AIzaSyB3VGQkOPU0ipgDVU8C2QKuTZJ2uzIrtOk"
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 0
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "status": 1
         }
       }
     }

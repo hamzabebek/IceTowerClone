@@ -11,6 +11,8 @@ public class Bounce : MonoBehaviour
 
     private Rigidbody2D rb;
     private float horizontal;
+    private float targetHorizontal;
+    private float smoothSpeed = 5f;
     [SerializeField] private float bounceValue;
     public int value = 0;
 
@@ -68,16 +70,73 @@ public class Bounce : MonoBehaviour
         StartCoroutine(BounceEffect());
     }
 
-    private void HorizontalMovement()
-    {
-        if (!isCanInput) return;
-        horizontal = Input.GetAxis("Horizontal");
-        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y); 
-    }
+    //private void HorizontalMovement()
+    //{
+    //    if (!isCanInput) return;
+    //    horizontal = Input.GetAxis("Horizontal");
+    //    Debug.Log(horizontal);
+    //    rb.velocity = new Vector2(horizontal * speed, rb.velocity.y); 
+    //}
 
     private IEnumerator BounceEffect()
     {
         yield return new WaitForSeconds(0.75f);
         isCanInput = true; 
+    }
+
+    //private void HorizontalMovement()
+    //{
+    //    if (!isCanInput) return;
+    //    float screenWidth = Screen.width;
+    //    horizontal = 0f;
+
+    //    if (Input.touchCount > 0)
+    //    {
+    //        float touchPositionX = Input.GetTouch(0).position.x;
+
+    //        if (touchPositionX > screenWidth / 2)
+    //        {
+    //            horizontal = 1f;
+    //        }
+    //        else
+    //        {
+    //            horizontal = -1f;
+    //        }
+    //    }
+    //    rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
+    //}
+    private void HorizontalMovement()
+    {
+        if (!isCanInput) return;
+
+        // Ekranýn geniþliði
+        float screenWidth = Screen.width;
+
+        // Dokunmatik ekranla saða veya sola hareket etmek için
+        if (Input.touchCount > 0)
+        {
+            float touchPositionX = Input.GetTouch(0).position.x;
+
+            // Ekranýn sað yarýsýna dokunulduysa saða hareket, sol yarýsýna dokunulduysa sola hareket
+            if (touchPositionX > screenWidth / 2)
+            {
+                targetHorizontal = 1f; // Sað hareket
+            }
+            else
+            {
+                targetHorizontal = -1f; // Sol hareket
+            }
+        }
+        else
+        {
+            // Hiç dokunma yoksa yatay hareketi sýfýr yap
+            targetHorizontal = 0f;
+        }
+
+        // Yatay hareketi yumuþak bir þekilde geçiþ yapacak þekilde güncelle
+        horizontal = Mathf.Lerp(horizontal, targetHorizontal, smoothSpeed * Time.deltaTime);
+
+        // Rigidbody'yi yatay hareket ettiriyoruz
+        rb.velocity = new Vector2(horizontal * speed, rb.velocity.y);
     }
 }

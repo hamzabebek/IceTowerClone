@@ -57,10 +57,9 @@ public class HighscoreManager : MonoBehaviour
         });
     }
 
-    public async Task<List<(string username, int score)>> LoadHighScores()
+    public async Task<List<HighscoreModel>> LoadHighScores()
     {
-        List<(string username, int score)> highScores = new List<(string, int)>();
-
+        List<HighscoreModel> highScores = new List<HighscoreModel>();
         DataSnapshot snapshot = await dbReference.Child("users").OrderByChild("highscore").LimitToLast(10).GetValueAsync();
 
         if (snapshot.Exists)
@@ -69,11 +68,15 @@ public class HighscoreManager : MonoBehaviour
             {
                 string username = userSnapshot.Child("username").Value?.ToString() ?? "Unknown";
                 int score = int.TryParse(userSnapshot.Child("highscore").Value?.ToString(), out int parsedScore) ? parsedScore : 0;
-
-                highScores.Add((username, score));
+                HighscoreModel listedHs = new HighscoreModel
+                {
+                    Username = username,
+                    Score = score
+                };
+                highScores.Add(listedHs);
             }
 
-            highScores.Sort((a, b) => b.score.CompareTo(a.score));
+            highScores.Sort((a, b) => b.Score.CompareTo(a.Score));
         }
         else
         {
