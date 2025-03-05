@@ -8,6 +8,7 @@ public class Bounce : MonoBehaviour
     [SerializeField] public float speed = 1f;
     [SerializeField] private bool isCanInput = true;
     [SerializeField] private GameObject deathScreen;
+    private Animator animator;
 
     private Rigidbody2D rb;
     private float horizontal;
@@ -22,6 +23,7 @@ public class Bounce : MonoBehaviour
         Time.timeScale = 1;
         deathScreen.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -34,6 +36,7 @@ public class Bounce : MonoBehaviour
         Vector2 normal = collision.contacts[0].normal;
         if (normal.y > 0.5f)
         {
+            animator.Play("jump_down",-1,0f);
             rb.velocity = new Vector2(rb.velocity.x, 0);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
@@ -65,6 +68,7 @@ public class Bounce : MonoBehaviour
     {
         Vector2 bounceDirection = new Vector2(bounce, 2f).normalized;
         isCanInput = false;
+        animator.Play("jump_down", -1, 0f);
         rb.velocity = Vector2.zero;
         rb.AddForce(bounceDirection * bounceValue, ForceMode2D.Impulse);
         StartCoroutine(BounceEffect());
@@ -82,6 +86,7 @@ public class Bounce : MonoBehaviour
     {
         yield return new WaitForSeconds(0.75f);
         isCanInput = true; 
+        animator.SetBool("isJumping", false);
     }
 
     //private void HorizontalMovement()
